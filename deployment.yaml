@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ip-log-dev
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: ip-log-dev
+  template:
+    metadata:
+      labels:
+        app: ip-log-dev
+    spec:
+      containers:
+        - name: ip-detector
+          image: securereg.m-bank.mn:5000/ip-detector:latest
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - name: log-storage
+              mountPath: /app/logs
+      imagePullSecrets:
+        - name: registry
+      volumes:
+        - name: log-storage
+          persistentVolumeClaim:
+            claimName: log-storage-pvc

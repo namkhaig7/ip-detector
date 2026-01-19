@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ip-log-dev
+spec:
+  selector:
+    app: ip-log-dev
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: ip-log-dev-route
+spec:
+  to:
+    kind: Service
+    name: ip-log-dev
+  port:
+    targetPort: 5000

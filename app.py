@@ -4,16 +4,15 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-LOG_FILE_PATH = os.path.join(BASE_DIR, "log.txt")
+log_path = "/app/logs/log.txt"
 
 def log_ip_to_file(ip):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_entry = f"[{timestamp}] IP: {ip}\n"
     
-    with open(LOG_FILE_PATH, "a") as f:
+    with open(log_path, "a") as f:
         f.write(log_entry)
-    print(f"--- Logged {ip} to {LOG_FILE_PATH} ---", flush=True)
+    print(f"--- Logged {ip} to {log_path} ---", flush=True)
 
 @app.route('/')
 def get_ip():
@@ -25,3 +24,5 @@ def get_ip():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
+
+    #asdgsdzsa
